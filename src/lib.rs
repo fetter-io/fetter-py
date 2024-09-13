@@ -1,7 +1,6 @@
 // use std::env;
 use ::fetter::run_cli;
 use pyo3::prelude::*;
-use pyo3::types::PyList;
 
 /// Formats the sum of two numbers as string.
 #[pyfunction]
