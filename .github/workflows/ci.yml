@@ -135,7 +135,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          pip install xensieve --find-links dist --force-reinstall
+          pip install fetter --find-links dist --force-reinstall
           pip install pytest
           pytest
 
