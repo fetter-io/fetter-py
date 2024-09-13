@@ -13,7 +13,9 @@ fn run(args: Vec<String>) -> PyResult<()> {
 
 #[pyfunction]
 fn run_with_argv() -> PyResult<()> {
-    let args: Vec<String> = env::args().collect();
+    // the first argument is Python, which must be removed
+    let args: Vec<String> = env::args().skip(1).collect();
+    // println!("args: {:?}", args);
     run_cli(args);
     Ok(())
 }

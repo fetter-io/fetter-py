@@ -27,7 +27,7 @@ Issues = "https://github.com/flexatone/fetter-py/issues"
 [tool.maturin]
 features = ["pyo3/extension-module"]
 
-[options.entry_points]
+[project.scripts]
 fetter = "fetter:run_with_argv"
 
 
