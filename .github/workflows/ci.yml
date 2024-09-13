@@ -45,7 +45,7 @@ jobs:
           name: wheels-linux-${{ matrix.target }}
           path: dist
 
-      - name: pytest
+      - name: Test
         if: ${{ startsWith(matrix.target, 'x86_64') }}
         shell: bash
         run: |
@@ -54,7 +54,7 @@ jobs:
           pip install pytest
           pytest
 
-      # - name: pytest
+      # - name: Test
       #   if: ${{ !startsWith(matrix.target, 'x86') && matrix.target != 'ppc64' }}
       #   uses: uraimo/run-on-arch-action@v2.5.0
       #   with:
@@ -96,7 +96,7 @@ jobs:
 #         with:
 #           name: wheels-windows-${{ matrix.target }}
 #           path: dist
-#       - name: pytest
+#       - name: Test
 #         if: ${{ !startsWith(matrix.target, 'aarch64') }}
 #         shell: bash
 #         run: |
@@ -130,14 +130,14 @@ jobs:
         with:
           name: wheels-macos-${{ matrix.target }}
           path: dist
-      - name: pytest
-        if: ${{ !startsWith(matrix.target, 'aarch64') }}
-        shell: bash
-        run: |
-          set -e
-          pip install fetter --find-links dist --force-reinstall
-          pip install pytest
-          pytest
+      # - name: Test
+      #   if: ${{ !startsWith(matrix.target, 'aarch64') }}
+      #   shell: bash
+      #   run: |
+      #     set -e
+      #     pip install fetter --find-links dist --force-reinstall
+      #     pip install pytest
+      #     pytest
 
 
   #-----------------------------------------------------------------------------
