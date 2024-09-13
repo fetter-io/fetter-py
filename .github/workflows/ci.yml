@@ -208,7 +208,7 @@ jobs:
     name: Release
     if: github.event_name == 'release'
 
-    needs: [build-linux, build-macos, sdist, test-rust, quality]
+    needs: [build-linux, build-macos, sdist, quality]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
