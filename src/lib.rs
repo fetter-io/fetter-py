@@ -5,8 +5,6 @@ use std::env;
 
 #[pyfunction]
 fn run(args: Vec<String>) -> PyResult<()> {
-    // let args: Vec<String> = py_args.iter().map(|arg| arg.to_string()).collect();
-    // env::set_var("RUST_BACKTRACE", "1");
     run_cli(args);
     Ok(())
 }
@@ -15,7 +13,6 @@ fn run(args: Vec<String>) -> PyResult<()> {
 fn run_with_argv() -> PyResult<()> {
     // the first argument is Python, which must be removed
     let args: Vec<String> = env::args().skip(1).collect();
-    // println!("args: {:?}", args);
     run_cli(args);
     Ok(())
 }

@@ -1,2 +1,2 @@
 # fetter-py
-Discover, manage, and monitor Python packages accross entire systems
+Discover, manage, and monitor Python packages accross systems
