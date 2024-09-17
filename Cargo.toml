@@ -10,4 +10,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3 = "0.22.0"
-fetter = "0.3.1"
+fetter = "0.4.0"
