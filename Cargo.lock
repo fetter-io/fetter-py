@@ -180,9 +180,9 @@ checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
 
 [[package]]
 name = "fetter"
-version = "0.3.2"
+version = "0.4.0"
 dependencies = [
- "fetter 0.4.0",
+ "fetter 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "pyo3",
 ]
 
