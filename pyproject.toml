@@ -5,7 +5,7 @@ build-backend = "maturin"
 [project]
 name = "fetter"
 dynamic = ["version"]
-description = "Discover, manage, and monitor Python packages across systems"
+description = "System-wide Python package discovery and allow listing."
 
 authors = [{name = "Christopher Ariza"}]
 maintainers = [{name = "Christopher Ariza"}]
