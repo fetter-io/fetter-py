@@ -180,17 +180,9 @@ checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
 
 [[package]]
 name = "fetter"
-version = "0.4.0"
-dependencies = [
- "fetter 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "pyo3",
-]
-
-[[package]]
-name = "fetter"
-version = "0.4.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "93e9c8af6dce753f663181782ae91576579e430ba592169ba3821b74099f3ac2"
+checksum = "2763612a5c55e231e73f325378718735018411db01fde3b32df8b6f57b4b6028"
 dependencies = [
  "clap",
  "pest",
@@ -198,6 +190,14 @@ dependencies = [
  "rayon",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "fetter"
+version = "0.5.1"
+dependencies = [
+ "fetter 0.5.0",
+ "pyo3",
 ]
 
 [[package]]
