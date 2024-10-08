@@ -180,17 +180,17 @@ checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
 
 [[package]]
 name = "fetter"
-version = "0.9.0"
+version = "0.10.0"
 dependencies = [
- "fetter 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "fetter 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "pyo3",
 ]
 
 [[package]]
 name = "fetter"
-version = "0.9.0"
+version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d88bfecaebe0c884f0c2581710fc90ee1c92e7e0c3c8262f2c04b5fb77c3489b"
+checksum = "02b9679d232a256d44d21fb4f5b8fa136b398be920c554fbae607d855c6453de"
 dependencies = [
  "clap",
  "pest",
