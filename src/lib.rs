@@ -5,7 +5,7 @@ use std::env;
 
 #[pyfunction]
 fn run(args: Vec<String>) -> PyResult<()> {
-    run_cli(args);
+    let _ = run_cli(args);
     Ok(())
 }
 
@@ -13,7 +13,7 @@ fn run(args: Vec<String>) -> PyResult<()> {
 fn run_with_argv() -> PyResult<()> {
     // the first argument is Python, which must be removed
     let args: Vec<String> = env::args().skip(1).collect();
-    run_cli(args);
+    let _ = run_cli(args);
     Ok(())
 }
 
