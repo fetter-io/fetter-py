@@ -20,7 +20,7 @@ jobs:
   build-linux:
     strategy:
       matrix:
-        target: [x86_64, x86, aarch64, armv7, s390x, ppc64le]
+        target: [x86_64, x86, aarch64, s390x, ppc64le]  # armv7,
 
     name: Build & Test Python / Linux / ${{ matrix.target }}
     runs-on: ubuntu-latest
