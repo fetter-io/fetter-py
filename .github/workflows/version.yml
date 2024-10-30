@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout fetter-py
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
           fetch-depth: 0
@@ -37,16 +37,25 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout fetter-py
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
           fetch-depth: 0
 
-#       - name: Checkout fetter-rs
-#         uses: actions/checkout@v3
-#         with:
-#           repository: 'fetter-io/fetter-rs'
-#         #   path: 'fetter-rs'
+      - name: Checkout fetter-rs
+        uses: actions/checkout@v4
+        with:
+          repository: 'fetter-io/fetter-rs'
+          path: 'fetter-rs'
+          fetch-depth: 0
+          ref: ${{ env.VERSION_FETTER_CRATES }}
+
+      - name: Extract New Version
+        run: |
+          export VERSION_FETTER_CRATES=$(curl -s https://crates.io/api/v1/crates/fetter | jq -r '.crate.max_stable_version'
+          echo "VERSION_FETTER_CRATES=$VERSION_FETTER_CRATES" >> $GITHUB_ENV
+          export NAME_BRANCH="content-update-${VERSION_FETTER_CRATES}-${GITHUB_RUN_ID}"
+          echo "NAME_BRANCH=$NAME_BRANCH" >> $GITHUB_ENV
 
       - uses: actions/setup-python@master
         with:
@@ -57,12 +66,6 @@ jobs:
           export PYTHONPATH="${PYTHONPATH}:."
           python3 .github/workflows/version.py
 
-#       - name: Extract New Version
-#         run: |
-#           export VERSION_SF_SOURCED=$(jq -r '.version' site-static-frame/src/sf-api/metadata.json)
-#           echo "VERSION_SF_SOURCED=$VERSION_SF_SOURCED" >> $GITHUB_ENV
-#           export NAME_BRANCH="content-update-${VERSION_SF_SOURCED}-${GITHUB_RUN_ID}"
-#           echo "NAME_BRANCH=$NAME_BRANCH" >> $GITHUB_ENV
 
 #       - name: Commit to Git
 #         run: |
