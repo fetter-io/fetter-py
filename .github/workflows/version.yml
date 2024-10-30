@@ -52,10 +52,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Process
+      - name: Process Changes
         run: |
           export PYTHONPATH="${PYTHONPATH}:."
-          python3 doc/build_json.py --write --output ../site-static-frame/src/sf-api
+          python3 .github/workflows/version.py
 
 #       - name: Extract New Version
 #         run: |
