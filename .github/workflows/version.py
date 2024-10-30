@@ -40,8 +40,7 @@ def main():
     if lib_version != self_version:
         update_cargo_toml(self_version, lib_version)
 
-    #     run(["git", "commit", "-m", f"Mirror: {lib_version}", "-a"], check=True)
-    #     run(["git", "tag", f"v{lib_version}"], check=True)
+
 
 
 if __name__ == "__main__":
