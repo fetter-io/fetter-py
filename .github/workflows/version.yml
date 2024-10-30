@@ -52,7 +52,7 @@ jobs:
 
       - name: Extract New Version
         run: |
-          export VERSION_FETTER_CRATES=$(curl -s https://crates.io/api/v1/crates/fetter | jq -r '.crate.max_stable_version'
+          export VERSION_FETTER_CRATES=$(curl -s https://crates.io/api/v1/crates/fetter | jq -r '.crate.max_stable_version')
           echo "VERSION_FETTER_CRATES=$VERSION_FETTER_CRATES" >> $GITHUB_ENV
           export NAME_BRANCH="content-update-${VERSION_FETTER_CRATES}-${GITHUB_RUN_ID}"
           echo "NAME_BRANCH=$NAME_BRANCH" >> $GITHUB_ENV
