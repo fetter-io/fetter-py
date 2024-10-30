@@ -24,9 +24,9 @@ def update_cargo_toml(self_version: str, lib_version: str):
     with open('Cargo.toml') as f:
         content = f.read()
         content = content.replace(
-            f'fetter = "{self_version}"', f'"fetter = "{lib_version}"')
+            f'fetter = "{self_version}"', f'fetter = "{lib_version}"')
         content = content.replace(
-            f'version = "{self_version}"', f'"version = "{lib_version}"')
+            f'version = "{self_version}"', f'version = "{lib_version}"')
 
     with open('Cargo.toml', 'w') as f:
         f.write(content)
