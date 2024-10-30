@@ -31,6 +31,14 @@ def update_cargo_toml(self_version: str, lib_version: str):
     with open('Cargo.toml', 'w') as f:
         f.write(content)
 
+def copy_readme():
+    src = 'fetter-rs/README.md'
+    dst = 'README.md'
+    with open(src) as f:
+        content = f.read()
+    with open(dst, 'w') as f:
+        f.write(content)
+
 
 def main():
     lib_version = get_lib_version()
@@ -39,7 +47,7 @@ def main():
 
     if lib_version != self_version:
         update_cargo_toml(self_version, lib_version)
-
+        copy_readme()
 
 
 
