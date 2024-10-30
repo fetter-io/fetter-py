@@ -66,30 +66,29 @@ jobs:
           export PYTHONPATH="${PYTHONPATH}:."
           python3 .github/workflows/version.py
 
+      - name: Commit to Git
+        run: |
+          git diff --stat
+          git config user.email "bot@fetter.dev"
+          git config user.name "Content Update Bot"
+          git checkout -b "${NAME_BRANCH}"
+          git commit -m "${NAME_BRANCH}" -a
+          git push origin ${NAME_BRANCH}
 
-#       - name: Commit to Git
-#         run: |
-#           git diff --stat
-#           git config user.email "bot@fetter.dev"
-#           git config user.name "Content Update Bot"
-#           git checkout -b "${NAME_BRANCH}"
-#           git commit -m "${NAME_BRANCH}" -a
-#           git push origin ${NAME_BRANCH}
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_DATA=$(jq -n \
+            --arg title "Version Update ${VERSION_FETTER_CRATES} (${GITHUB_RUN_ID})" \
+            --arg body "--" \
+            --arg head "${NAME_BRANCH}" \
+            --arg base "main" \
+            --argjson assignees '["flexatone"]' \
+            '{"title": $title, "body": $body, "head": $head, "base": $base}')
 
-#       - name: Create Pull Request
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         run: |
-#           PR_DATA=$(jq -n \
-#             --arg title "Version Update ${VERSION_SF_SOURCED} (${GITHUB_RUN_ID})" \
-#             --arg body "--" \
-#             --arg head "${NAME_BRANCH}" \
-#             --arg base "main" \
-#             --argjson assignees '["flexatone"]' \
-#             '{"title": $title, "body": $body, "head": $head, "base": $base}')
-
-#           curl --location --request POST "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls" \
-#             --header "Authorization: token ${GITHUB_TOKEN}" \
-#             --header "Content-Type: application/json" \
-#             --data "$PR_DATA"
+          curl --location --request POST "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls" \
+            --header "Authorization: token ${GITHUB_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data "$PR_DATA"
 
