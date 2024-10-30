@@ -31,16 +31,16 @@ jobs:
           fi
 
 
-#   update-site-content:
-#     name: Update Version
-#     needs: [check-for-update]
-#     runs-on: ubuntu-22.04
-#     steps:
-#       - name: Checkout fetter-py
-#         uses: actions/checkout@v3
-#         with:
-#           repository: ${{ github.repository }}
-#           fetch-depth: 0
+  update-content:
+    name: Update Content
+    needs: [check-for-update]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout fetter-py
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}
+          fetch-depth: 0
 
 #       - name: Checkout fetter-rs
 #         uses: actions/checkout@v3
@@ -48,9 +48,14 @@ jobs:
 #           repository: 'fetter-io/fetter-rs'
 #         #   path: 'fetter-rs'
 
-#       - uses: actions/setup-python@master
-#         with:
-#           python-version: '3.11'
+      - uses: actions/setup-python@master
+        with:
+          python-version: '3.11'
+
+      - name: Process
+        run: |
+          export PYTHONPATH="${PYTHONPATH}:."
+          python3 doc/build_json.py --write --output ../site-static-frame/src/sf-api
 
 #       - name: Extract New Version
 #         run: |
