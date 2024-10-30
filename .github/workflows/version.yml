@@ -1,0 +1,87 @@
+name: Content Updater
+
+on:
+  workflow_dispatch:
+  schedule:
+    # every day, 4 AM PST
+    - cron: "0 12 * * *"
+jobs:
+
+  check-for-update:
+    name: Check for Update
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout fetter-py
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}
+          fetch-depth: 0
+
+      - name: Collect versions, fail if no updated needed
+        run: |
+          export VERSION_FETTER_CRATES=$(curl -s https://crates.io/api/v1/crates/fetter | jq -r '.crate.max_stable_version')
+          echo "version crates: $VERSION_FETTER_CRATES"
+          export VERSION_FETTER_PYPI=$(curl -s https://pypi.org/pypi/fetter/json | jq -r '.info.version')
+          echo "version pypi: $VERSION_FETTER_PYPI"
+          if [ "$VERSION_FETTER_CRATES" == "$VERSION_FETTER_PYPI" ]; then
+            echo "update needed: no"
+            exit 1
+          else
+            echo "update needed: yes"
+          fi
+
+
+#   update-site-content:
+#     name: Update Version
+#     needs: [check-for-update]
+#     runs-on: ubuntu-22.04
+#     steps:
+#       - name: Checkout fetter-py
+#         uses: actions/checkout@v3
+#         with:
+#           repository: ${{ github.repository }}
+#           fetch-depth: 0
+
+#       - name: Checkout fetter-rs
+#         uses: actions/checkout@v3
+#         with:
+#           repository: 'fetter-io/fetter-rs'
+#         #   path: 'fetter-rs'
+
+#       - uses: actions/setup-python@master
+#         with:
+#           python-version: '3.11'
+
+#       - name: Extract New Version
+#         run: |
+#           export VERSION_SF_SOURCED=$(jq -r '.version' site-static-frame/src/sf-api/metadata.json)
+#           echo "VERSION_SF_SOURCED=$VERSION_SF_SOURCED" >> $GITHUB_ENV
+#           export NAME_BRANCH="content-update-${VERSION_SF_SOURCED}-${GITHUB_RUN_ID}"
+#           echo "NAME_BRANCH=$NAME_BRANCH" >> $GITHUB_ENV
+
+#       - name: Commit to Git
+#         run: |
+#           git diff --stat
+#           git config user.email "bot@fetter.dev"
+#           git config user.name "Content Update Bot"
+#           git checkout -b "${NAME_BRANCH}"
+#           git commit -m "${NAME_BRANCH}" -a
+#           git push origin ${NAME_BRANCH}
+
+#       - name: Create Pull Request
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         run: |
+#           PR_DATA=$(jq -n \
+#             --arg title "Version Update ${VERSION_SF_SOURCED} (${GITHUB_RUN_ID})" \
+#             --arg body "--" \
+#             --arg head "${NAME_BRANCH}" \
+#             --arg base "main" \
+#             --argjson assignees '["flexatone"]' \
+#             '{"title": $title, "body": $body, "head": $head, "base": $base}')
+
+#           curl --location --request POST "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls" \
+#             --header "Authorization: token ${GITHUB_TOKEN}" \
+#             --header "Content-Type: application/json" \
+#             --data "$PR_DATA"
+
