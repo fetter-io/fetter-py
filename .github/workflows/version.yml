@@ -1,4 +1,4 @@
-name: Content Updater
+name: Version Updater
 
 on:
   workflow_dispatch:
