@@ -39,6 +39,9 @@ def copy_readme():
     with open(dst, 'w') as f:
         f.write(content)
 
+# def update_pyproject_toml():
+#     pass
+# updating keywords, description from fetter-rs/Cargo.tom to pyproject.toml
 
 def main():
     lib_version = get_lib_version()

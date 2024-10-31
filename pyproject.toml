@@ -5,7 +5,9 @@ build-backend = "maturin"
 [project]
 name = "fetter"
 dynamic = ["version"]
-description = "System-wide Python package discovery, validation, and allow-listing."
+
+description = "System-wide Python package discovery, validation, vulnerability scanning, and allow-listing."
+keywords = ["python-package", "allow-listing", "vulnerability scanning"]
 
 authors = [{name = "Christopher Ariza"}]
 maintainers = [{name = "Christopher Ariza"}]
@@ -16,7 +18,6 @@ classifiers = [
     "Programming Language :: Rust",
 ]
 
-keywords = ["package", "allow-listing"]
 
 
 [project.urls]
