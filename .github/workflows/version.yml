@@ -66,6 +66,9 @@ jobs:
           export PYTHONPATH="${PYTHONPATH}:."
           python3 .github/workflows/version.py
 
+      - name: Remove fetter-rs
+        run: rm -rf fetter-rs
+
       - name: Commit to Git
         run: |
           git diff --stat
