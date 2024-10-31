@@ -86,7 +86,7 @@ jobs:
             --arg title "Version Update ${VERSION_FETTER_CRATES} (${GITHUB_RUN_ID})" \
             --arg body "--" \
             --arg head "${NAME_BRANCH}" \
-            --arg base "main" \
+            --arg base "default" \
             --argjson assignees '["flexatone"]' \
             '{"title": $title, "body": $body, "head": $head, "base": $base}')
 
