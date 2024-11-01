@@ -7,12 +7,12 @@ use std::env;
 fn run(args: Vec<String>) -> PyResult<()> {
     match run_cli(args) {
         Ok(_) => Ok(()),
-        Err(e) => {
-            Err(PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(format!("Error: {}", e)))
-        }
+        Err(e) => Err(PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(format!(
+            "Error: {}",
+            e
+        ))),
     }
 }
-
 
 // #[pyfunction]
 // fn run_with_argv() -> PyResult<()> {
@@ -21,7 +21,6 @@ fn run(args: Vec<String>) -> PyResult<()> {
 //     let _ = run_cli(args);
 //     Ok(())
 // }
-
 
 #[pyfunction]
 fn run_with_argv() -> PyResult<()> {
