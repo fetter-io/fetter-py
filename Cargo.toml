@@ -1,6 +1,6 @@
 [package]
 name = "fetter"
-version = "1.1.0"
+version = "1.2.0"
 edition = "2021"
 
 [lib]
@@ -9,4 +9,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 pyo3 = "0.22.5"
-fetter = "1.1.0"
+fetter = "1.2.0"
