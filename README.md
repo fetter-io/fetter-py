@@ -215,7 +215,7 @@ To run `fetter validate` with `pre-commit`, add the following to your `.pre-comm
 ```yaml
 repos:
 - repo: https://github.com/fetter-io/fetter-rs
-  rev: v1.7.0
+  rev: v1.8.0
   hooks:
     - id: fetter-validate
       args: [--bound, {FILE}, --superset, --subset, display, --code, 3]
@@ -231,7 +231,7 @@ To run `fetter audit` with `pre-commit`, add the following to your `.pre-commit-
 ```yaml
 repos:
 - repo: https://github.com/fetter-io/fetter-rs
-  rev: v1.7.0
+  rev: v1.8.0
   hooks:
     - id: fetter-audit
 ```
@@ -247,6 +247,7 @@ repos:
 - `--user_site`: Force inclusion of the user site-packages, even if it is not activated. Defaults to only including if the interpreter is configured to use it.
 - `--cache-duration, -c`: Create or use a cache that expires after the provided number of seconds. A duration of zero will disable caching.
 - `--log, -l`: Enable logging output.
+- `--stderr`: Force all output to stderr.
 
 ### Command: `fetter scan`
 
@@ -313,6 +314,7 @@ repos:
 - Options
   - `--bound, -b <FILE>`: Path or URL to the file containing bound requirements, which can be a requirements.txt, pyproject.toml or a lock file created by `uv`, `poetry`, `pipenv`, or `pip-tools`.
   - `--bound-options <OPTIONS>`: Names of additional optional dependency groups.
+  - `--ignore <OPTIONS>`: Names of packages to be excluded from all evaluation.
   - `--subset`: Allow the observed packages to be a subset of the bound requirements.
   - `--superset`: Allow the observed packages to be a superset of the bound requirements.
 - Subcommands
@@ -382,6 +384,16 @@ repos:
 
 
 ## What is New in Fetter
+
+
+### 1.8.0
+
+Added the `--ignore` parameter to `site-install`.
+
+Added the `--stderr` flag to optionally divert all output to stderr.
+
+Updated `site-install` to always use `--stderr`.
+
 
 ### 1.7.0
 
