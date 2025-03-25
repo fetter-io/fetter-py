@@ -276,14 +276,6 @@ checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
 [[package]]
 name = "fetter"
 version = "1.9.0"
-dependencies = [
- "fetter 1.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "pyo3",
-]
-
-[[package]]
-name = "fetter"
-version = "1.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "79eab5412b403742ea2777989a6ac182522f14e86d8801c35382610d574e73bb"
 dependencies = [
@@ -299,6 +291,14 @@ dependencies = [
  "tempfile",
  "toml",
  "ureq",
+]
+
+[[package]]
+name = "fetter"
+version = "1.9.1"
+dependencies = [
+ "fetter 1.9.0",
+ "pyo3",
 ]
 
 [[package]]
