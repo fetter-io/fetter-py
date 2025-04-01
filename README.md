@@ -215,7 +215,7 @@ To run `fetter validate` with `pre-commit`, add the following to your `.pre-comm
 ```yaml
 repos:
 - repo: https://github.com/fetter-io/fetter-rs
-  rev: v1.10.0
+  rev: v1.12.0
   hooks:
     - id: fetter-validate
       args: [--bound, {FILE}, --superset, --subset, display, --code, 3]
@@ -231,7 +231,7 @@ To run `fetter audit` with `pre-commit`, add the following to your `.pre-commit-
 ```yaml
 repos:
 - repo: https://github.com/fetter-io/fetter-rs
-  rev: v1.10.0
+  rev: v1.12.0
   hooks:
     - id: fetter-audit
 ```
@@ -385,8 +385,17 @@ repos:
 
 
 
-
 ## What is New in Fetter
+
+### 1.12.0
+
+Extension to the public library interface.
+
+
+### 1.11.0
+
+Extension to the public library interface.
+
 
 ### 1.10.0
 
@@ -525,7 +534,7 @@ Support `--requirement` in requirements files.
 
 Package and DepSpec comparisons now remove user.
 
-Package and DepSpec comparisons now accept matching either on requested_revision or commit_id.
+Package and DepSpec comparisons now accept matching either on revision or commit_id.
 
 URLs are now shown in DepSpec displays.
 
