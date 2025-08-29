@@ -244,7 +244,7 @@ repos:
 - `--exe, -e <FILES>`: Provide zero or more executable paths to derive site package locations. If omitted, all discoverable executables will be used.
 - `--quiet, -q`: Disable terminal animations.
 - `--user_site`: Force inclusion of the user site-packages, even if it is not activated. Defaults to only including if the interpreter is configured to use it.
-- `--cache-duration, -c`: Create or use a cache that expires after the provided number of seconds. A duration of zero will disable caching.
+- `--cache-duration, -c`: Create or use a caches that expire after the provided number of seconds. A duration of zero will disable caching.
 - `--log, -l`: Enable logging output.
 - `--stderr`: Force all output to stderr.
 
@@ -333,6 +333,7 @@ repos:
   - `--pattern, -p <STRING>`: Specify a glob-like pattern to select packages (default: `*`).
   - `--case`: Enable case-sensitive pattern matching.
   - `--cache-refresh`: Ignore any OSV caches and re-fetch vulnerability details
+  - `--cvss`: Filter vulnerabilities to those greater or equal to a provided CVSS score. If no argument is provided, the maximum is reported.
 - Subcommands
   - `display`: Show audit results in the terminal.
   - `json`: Print validation results in JSON format.
@@ -386,6 +387,26 @@ repos:
 
 
 ## What is New in Fetter
+
+
+### 2.0.1
+
+Update for CI.
+
+
+### 2.0.0
+
+The `audit` command now features a `--cvss` flag to filter results be CVSS score.
+
+The `audit` command now displays CVSS score, severity, and vector.
+
+The `--cache-duration` parameter is now used to set the cache duration of vulnerabilities per package obtained from the OSV DB.
+
+The `audit` command is now robust to requests with no packages.
+
+The `monitor_scan` command now properly identifies duplicated scans.
+
+The `monitor_scan` command now defaults to a single execution with a `--period` of zero.
 
 
 ### 1.22.0
