@@ -34,6 +34,7 @@ Additionally, `fetter` can configure a virtual environment to validate package a
 
 ## Articles
 
+* [What Is the Most Dangerous Python Package on Your System?](https://python.plainenglish.io/what-is-the-most-dangerous-python-package-on-your-system-03d7e3ea2000)
 * [System-Wide Python Package Control: Enforce Allow Lists & Find Vulnerabilities](https://levelup.gitconnected.com/system-wide-python-package-control-enforce-allow-lists-find-vulnerabilities-35f3daeb44a8)
 * [Guarantee a Locked & Reproducible Environment with Every Python Run](https://medium.com/data-science-collective/guarantee-a-locked-reproducible-environment-with-every-python-run-c0e2bf19fb53)
 
@@ -214,7 +215,7 @@ To run `fetter validate` with `pre-commit`, add the following to your `.pre-comm
 ```yaml
 repos:
 - repo: https://github.com/fetter-io/fetter-rs
-  rev: v1.19.0
+  rev: v2.8.0
   hooks:
     - id: fetter-validate
       args: [--bound, {FILE}, --superset, --subset, display, --code, 3]
@@ -230,7 +231,7 @@ To run `fetter audit` with `pre-commit`, add the following to your `.pre-commit-
 ```yaml
 repos:
 - repo: https://github.com/fetter-io/fetter-rs
-  rev: v1.19.0
+  rev: v2.8.0
   hooks:
     - id: fetter-audit
 ```
@@ -389,6 +390,21 @@ repos:
 
 
 ## What is New in Fetter
+
+### 2.9.0
+
+Improvements to `CacheConfig` struct.
+
+
+### 2.8.0
+
+Extension to the public library interface.
+
+
+### 2.7.0
+
+Extension to the public library interface.
+
 
 ### 2.6.0
 
