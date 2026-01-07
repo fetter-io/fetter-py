@@ -16,6 +16,7 @@ license = { file = "LICENSE" }
 requires-python = ">=3.9"
 classifiers = [
     "Programming Language :: Rust",
+    "Topic :: Security"
 ]
 
 
