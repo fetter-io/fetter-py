@@ -8,5 +8,5 @@ name = "fetter"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.22.5"
+pyo3 = "0.28.3"
 fetter = "3.2.0"
