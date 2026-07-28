@@ -8,5 +8,9 @@ name = "fetter"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.28.3"
+# `generate-import-lib` lets maturin build Windows wheels for Python
+# versions whose interpreter isn't physically installed on the runner
+# (only 3.10 comes from setup-python). It has no effect on non-Windows
+# targets.
+pyo3 = { version = "0.28.3", features = ["generate-import-lib"] }
 fetter = "4.0.0"
