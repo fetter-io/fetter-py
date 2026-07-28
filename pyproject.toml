@@ -28,8 +28,6 @@ classifiers = [
     "Topic :: Security"
 ]
 
-
-
 [project.urls]
 Homepage = "https://github.com/fetter-io/fetter-py"
 Repository = "https://github.com/fetter-io/fetter-py.git"
