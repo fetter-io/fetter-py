@@ -3,7 +3,7 @@ use ::fetter::write_color;
 use ::fetter::UreqClientLive;
 use pyo3::prelude::*;
 use std::io::stderr;
-use std::process::Command;
+use std::io::Write;
 use std::sync::Arc;
 
 use std::env;
@@ -114,25 +114,37 @@ fn validate(
     }
     child_args.push("json".to_string());
 
-    let python_executable = Python::attach(|py| -> PyResult<String> {
-        let sys = py.import("sys")?;
-        sys.getattr("executable")?.extract()
-    })?;
+    let client = Arc::new(UreqClientLive);
+    Python::attach(|py| -> PyResult<String> {
+        let os = py.import("os")?;
+        let tempfile = py.import("tempfile")?;
+        let tmp = tempfile.getattr("TemporaryFile")?.call0()?;
 
-    let output = Command::new(python_executable)
-        .arg("-c")
-        .arg("import sys, fetter; fetter.run(sys.argv[1:])")
-        .args(child_args)
-        .output()
-        .map_err(|e| PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(e.to_string()))?;
+        let tmp_fd = tmp.call_method0("fileno")?.extract::<i32>()?;
+        let stdout_fd = os.call_method1("dup", (1,))?.extract::<i32>()?;
+        os.call_method1("dup2", (tmp_fd, 1))?;
 
-    if !output.status.success() {
-        return Err(PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(
-            String::from_utf8_lossy(&output.stderr).to_string(),
-        ));
-    }
+        let run_result = run_cli(child_args, client);
+        let flush_result = std::io::stdout().flush();
 
-    Ok(String::from_utf8_lossy(&output.stdout).trim().to_string())
+        os.call_method1("dup2", (stdout_fd, 1))?;
+        os.call_method1("close", (stdout_fd,))?;
+
+        if let Err(e) = flush_result {
+            return Err(PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(
+                e.to_string(),
+            ));
+        }
+        if let Err(e) = run_result {
+            return Err(PyErr::new::<pyo3::exceptions::PyRuntimeError, _>(format!(
+                "Error: {e}"
+            )));
+        }
+
+        tmp.call_method1("seek", (0,))?;
+        let output: Vec<u8> = tmp.call_method0("read")?.extract()?;
+        Ok(String::from_utf8_lossy(&output).trim().to_string())
+    })
 }
 
 #[pymodule]
