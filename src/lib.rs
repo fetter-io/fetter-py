@@ -38,25 +38,81 @@ fn run_with_argv() -> PyResult<()> {
 }
 
 #[pyfunction]
-fn validate(args: Vec<String>) -> PyResult<String> {
-    if !args.iter().any(|arg| arg == "validate") {
+#[pyo3(signature = (
+    bound,
+    exes=None,
+    bound_options=None,
+    ignore=None,
+    subset=false,
+    superset=false,
+    user_site=false,
+    all_users=false,
+    cache_duration=120,
+    cache_directory=None,
+    log=false
+))]
+fn validate(
+    bound: String,
+    exes: Option<Vec<String>>,
+    bound_options: Option<Vec<String>>,
+    ignore: Option<Vec<String>>,
+    subset: bool,
+    superset: bool,
+    user_site: bool,
+    all_users: bool,
+    cache_duration: u64,
+    cache_directory: Option<String>,
+    log: bool,
+) -> PyResult<String> {
+    if ignore.as_ref().is_some_and(|values| values.is_empty()) {
         return Err(PyErr::new::<pyo3::exceptions::PyValueError, _>(
-            "validate() expects CLI-style args that include the `validate` command",
-        ));
-    }
-    if args
-        .iter()
-        .any(|arg| matches!(arg.as_str(), "display" | "write" | "exit"))
-    {
-        return Err(PyErr::new::<pyo3::exceptions::PyValueError, _>(
-            "validate() always returns JSON and does not accept validate output subcommands",
+            "ignore cannot be an empty list",
         ));
     }
 
-    let mut child_args = args;
-    if !child_args.iter().any(|arg| arg == "json") {
-        child_args.push("json".to_string());
+    let mut child_args = vec!["fetter".to_string()];
+    if let Some(exes) = exes {
+        for exe in exes {
+            child_args.push("-e".to_string());
+            child_args.push(exe);
+        }
     }
+    if cache_duration != 120 {
+        child_args.push("--cache-duration".to_string());
+        child_args.push(cache_duration.to_string());
+    }
+    if let Some(cache_directory) = cache_directory {
+        child_args.push("--cache-directory".to_string());
+        child_args.push(cache_directory);
+    }
+    if user_site {
+        child_args.push("--user-site".to_string());
+    }
+    if all_users {
+        child_args.push("--all-users".to_string());
+    }
+    if log {
+        child_args.push("--log".to_string());
+    }
+
+    child_args.push("validate".to_string());
+    child_args.push("--bound".to_string());
+    child_args.push(bound);
+    if let Some(bound_options) = bound_options {
+        child_args.push("--bound-options".to_string());
+        child_args.extend(bound_options);
+    }
+    if let Some(ignore) = ignore {
+        child_args.push("--ignore".to_string());
+        child_args.extend(ignore);
+    }
+    if subset {
+        child_args.push("--subset".to_string());
+    }
+    if superset {
+        child_args.push("--superset".to_string());
+    }
+    child_args.push("json".to_string());
 
     let python_executable = Python::attach(|py| -> PyResult<String> {
         let sys = py.import("sys")?;

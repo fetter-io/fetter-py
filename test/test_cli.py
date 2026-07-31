@@ -47,15 +47,9 @@ def test_validate_returns_json_string(tmp_path: Path):
     requirements.write_text("package-that-should-not-exist-anywhere==0.0.0\n")
 
     result = fetter.validate(
-        [
-            'fetter',
-            '-e',
-            sys.executable,
-            'validate',
-            '--bound',
-            str(requirements),
-            '--superset',
-        ]
+        str(requirements),
+        exes=[sys.executable],
+        superset=True,
     )
     payload = json.loads(result)
     assert isinstance(payload, list)
