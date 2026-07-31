@@ -1,4 +1,6 @@
 import sys
+import json
+from pathlib import Path
 
 import fetter
 
@@ -9,6 +11,10 @@ def test_module_has_run():
 
 def test_module_has_run_with_argv():
     assert hasattr(fetter, 'run_with_argv')
+
+
+def test_module_has_validate():
+    assert hasattr(fetter, 'validate')
 
 
 def test_run_count_current_exe():
@@ -34,3 +40,16 @@ def test_run_search_current_exe():
     fetter.run(
         ['fetter', '-e', sys.executable, 'search', '--pattern', '*', 'display']
     )
+
+
+def test_validate_returns_json_string(tmp_path: Path):
+    requirements = tmp_path / "requirements.txt"
+    requirements.write_text("package-that-should-not-exist-anywhere==0.0.0\n")
+
+    result = fetter.validate(
+        str(requirements),
+        exes=[sys.executable],
+        superset=True,
+    )
+    payload = json.loads(result)
+    assert isinstance(payload, list)
