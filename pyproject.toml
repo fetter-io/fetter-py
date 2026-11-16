@@ -1,19 +1,19 @@
 [build-system]
-requires = ["maturin==1.13.3"]
+requires = ["maturin==1.16.0"]
 build-backend = "maturin"
 
 [project]
 name = "fetter"
 dynamic = ["version"]
 
-description = "System-wide Python package discovery, validation, and allow-listing."
+description = "Comprehensive open-source supply-chain visibility, providing system-wide package discovery, validation, vulnerability scanning, and allow-listing for Python, npm, Cargo, Go, Ruby, PHP, Swift, pre-commit hooks, GitHub Actions, VS Code extensions, and Chromium and Firefox browser extensions."
 keywords = ["python-package", "allow-listing", "vulnerability scanning"]
 
 authors = [{name = "Christopher Ariza"}]
 maintainers = [{name = "Christopher Ariza"}]
 readme = "README.md"
 license = { file = "LICENSE" }
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Operating System :: MacOS :: MacOS X",
