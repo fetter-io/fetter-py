@@ -12,5 +12,5 @@ crate-type = ["cdylib"]
 # versions whose interpreter isn't physically installed on the runner
 # (only 3.10 comes from setup-python). It has no effect on non-Windows
 # targets.
-pyo3 = { version = "0.28.3", features = ["generate-import-lib"] }
+pyo3 = { version = "0.30.1", features = ["generate-import-lib"] }
 fetter = "5.0.0"
