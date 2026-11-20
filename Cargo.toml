@@ -1,6 +1,6 @@
 [package]
 name = "fetter"
-version = "5.1.0"
+version = "5.2.0"
 edition = "2021"
 
 [lib]
@@ -13,4 +13,4 @@ crate-type = ["cdylib"]
 # (only 3.10 comes from setup-python). It has no effect on non-Windows
 # targets.
 pyo3 = { version = "0.30.1", features = ["generate-import-lib"] }
-fetter = "5.1.0"
+fetter = "5.2.0"
